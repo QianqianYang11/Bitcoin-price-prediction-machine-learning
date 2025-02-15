@@ -11,6 +11,7 @@ from sklearn.metrics import precision_score
 from xgboost import XGBClassifier
 
 
+
 site = mwclient.Site("en.wikipedia.org")
 page = site.pages["Bitcoin"]
 revs = list(page.revisions())[:1000]
@@ -51,7 +52,7 @@ edits_df = pd.DataFrame.from_dict(edits, orient='index')
 dates = pd.date_range(start = '2020-03-08', end = datetime.today())
 rolling_edits = edits_df.rolling(30).mean()
 rolling_edits = rolling_edits.dropna()
-rolling_edits.to_csv("D:\Anaconda\app\bitcoin-predict\wikipedia_edits.csv")
+rolling_edits.to_csv("D:\\Anaconda\\app\\bitcoin-predict\\wikipedia_edits.csv")
 
 btc_ticker = yf.Ticker('BTC-USD') 
 btc = btc_ticker.history(period='max')
