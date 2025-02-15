@@ -17,6 +17,7 @@ revs = list(page.revisions())
 revs = sorted(revs, key = lambda rev: rev["timestamp"])
 sentiment_pipeline = pipeline("sentiment-analysis")
 
+# Sentiment Analysis
 def find_sentiment(text):
     sent = sentiment_pipeline([text[:250]])[0]
     score = sent["score"]
@@ -25,7 +26,7 @@ def find_sentiment(text):
     return score
 edits = {}
 
-
+# Sentiment in Numbers
 for rev in revs:
     date = time.strftime("%Y-%m-%d", rev["timestamp"])
     if date not in edits:
@@ -35,6 +36,7 @@ for rev in revs:
     edits[date]["sentiments"].append(find_sentiment(rev.get('comment', '')))
     from statistics import mean
 
+# Sentiment Data Cleaning
 for key in edits:
     if len(edits[key]["sentiments"]) > 0:
         edits[key]["sentiment"] = mean(edits[key]["sentiments"])
